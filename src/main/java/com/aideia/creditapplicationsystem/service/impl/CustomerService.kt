@@ -1,18 +1,24 @@
 package com.aideia.creditapplicationsystem.service.impl
 
 import com.aideia.creditapplicationsystem.entity.Customer
+import com.aideia.creditapplicationsystem.repository.CustomerRepository
 import com.aideia.creditapplicationsystem.service.ICustomerService
+import org.springframework.stereotype.Service
+import java.lang.RuntimeException
 
-class CustomerService: ICustomerService {
+@Service
+class CustomerService(
+    private val customerRepository: CustomerRepository
+) : ICustomerService {
     override fun save(customer: Customer): Customer {
-        TODO("Not yet implemented")
+        return this.customerRepository.save(customer)
     }
 
     override fun finById(id: Long): Customer {
-        TODO("Not yet implemented")
+        return this.customerRepository.findById(id).orElseThrow {
+            throw RuntimeException("ID não encontrado")
+        }
     }
 
-    override fun delete(id: Long): Customer {
-        TODO("Not yet implemented")
-    }
+    override fun delete(id: Long) = this.customerRepository.deleteById(id)
 }
