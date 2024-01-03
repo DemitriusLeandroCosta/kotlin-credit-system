@@ -8,10 +8,14 @@ import java.util.*
 
 @Service
 class CreditService(
-    private val creditRepository: CreditRepository
+    private val creditRepository: CreditRepository,
+    private val customerService: CustomerService
 ): ICreditService {
     override fun save(credit: Credit): Credit {
-        TODO("Not yet implemented")
+        credit.apply {
+            custommer =customerService.finById(credit.custommer?.id!!)
+        }
+      return  this.creditRepository.save(credit)
     }
 
     override fun findAllByCustomer(customerId: Long): List<Credit> {
