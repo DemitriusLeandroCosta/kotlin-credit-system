@@ -1,10 +1,8 @@
 package com.aideia.creditapplicationsystem.repository
 
 import com.aideia.creditapplicationsystem.entity.Credit
-import org.springframework.data.jpa.repository.JpaRepository
-import org.springframework.stereotype.Repository
+import org.springframework.data.repository.CrudRepository
 
-@Repository
-interface CreditRepository: JpaRepository< Credit, Long> {
 
+interface CreditRepository : CrudRepository<Credit,Long>{
 }
