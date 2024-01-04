@@ -4,6 +4,7 @@ import com.aideia.creditapplicationsystem.dto.CustomerDto
 import com.aideia.creditapplicationsystem.dto.CustomerView
 import com.aideia.creditapplicationsystem.entity.Customer
 import com.aideia.creditapplicationsystem.service.impl.CustomerService
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -27,4 +28,7 @@ class CustommerResource(
       var customer:Customer = this.customerService.finById(id)
         return CustomerView(customer)
     }
+
+    @DeleteMapping("/{id}")
+    fun deleteCustomer(@PathVariable id:Long) = this.customerService.delete(id)
 }
