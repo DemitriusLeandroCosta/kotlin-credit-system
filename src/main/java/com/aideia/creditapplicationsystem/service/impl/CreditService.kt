@@ -23,6 +23,8 @@ class CreditService(
     }
 
     override fun findByCreditCode(customerId: Long, creditCode: UUID): Credit {
-        TODO("Not yet implemented")
+       val credit:Credit =(this.creditRepository.findByCreditCode(creditCode)?:
+       throw RuntimeException("Credit Code inexistente"))
+        return if(credit.custommer?.id == customerId) credit else throw RuntimeException("Contact Admin")
     }
 }
