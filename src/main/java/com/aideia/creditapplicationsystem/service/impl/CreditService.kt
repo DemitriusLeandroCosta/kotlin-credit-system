@@ -22,7 +22,7 @@ class CreditService(
         TODO("Not yet implemented")
     }
 
-    override fun findByCreditCode(creditCode: UUID): Credit {
+    override fun findByCreditCode(customerId: Long, creditCode: UUID): Credit {
         TODO("Not yet implemented")
     }
 }
