@@ -11,6 +11,6 @@ import java.util.UUID
 interface CreditRepository : CrudRepository<Credit,Long>{
     fun findByCreditCode(creditCode: UUID): Credit?
 
-    @Query(value = "SELECT * from CREDIT where CREDIT_ID = ?1", nativeQuery = true)
+    @Query(value = "SELECT * from CREDIT where CUSTOMMER_ID  = ?1", nativeQuery = true)
     fun findAllByCustomerId(customerId: Long): List<Credit>
 }
