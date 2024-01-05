@@ -3,11 +3,8 @@ package com.aideia.creditapplicationsystem.controller
 import com.aideia.creditapplicationsystem.dto.CreditDto
 import com.aideia.creditapplicationsystem.dto.CreditView
 import com.aideia.creditapplicationsystem.dto.CreditViewList
-import com.aideia.creditapplicationsystem.dto.CustomerDto
 import com.aideia.creditapplicationsystem.entity.Credit
 import com.aideia.creditapplicationsystem.service.impl.CreditService
-import jakarta.persistence.Id
-import org.aspectj.apache.bcel.classfile.Code
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -34,7 +31,7 @@ class CreditResource(
             .map {credit:Credit -> CreditViewList(credit)}.collect(Collectors.toList())
     }
 
-    @GetMapping
+    @GetMapping("/{creditCode}")
     fun findByCreditCode(@RequestParam(value= "customerId") customerId: Long,
                          @PathVariable creditCode: UUID): CreditView {
       val credit: Credit =  this.creditService.findByCreditCode(customerId, creditCode)
