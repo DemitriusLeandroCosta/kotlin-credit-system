@@ -1,4 +1,4 @@
-package com.aideia.creditapplicationsystem.dto
+package com.aideia.creditapplicationsystem.dto.response
 
 import com.aideia.creditapplicationsystem.entity.Customer
 import java.math.BigDecimal
@@ -10,16 +10,17 @@ data class CustomerView(
     val income: BigDecimal,
     val email: String,
     val zipCode: String,
-    val street: String
+    val street: String,
+    val id: Long?
 ) {
-    constructor(customer: Customer) : this (
+    constructor(customer: Customer): this (
         firstName = customer.firstName,
         lastName = customer.lastName,
         cpf = customer.cpf,
         income = customer.income,
         email = customer.email,
-        zipCode = customer.address.zipeCode,
-        street = customer.address.street
+        zipCode = customer.address.zipCode,
+        street = customer.address.street,
+        id = customer.id
     )
-
 }

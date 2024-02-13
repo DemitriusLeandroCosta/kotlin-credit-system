@@ -1,10 +1,10 @@
 package com.aideia.creditapplicationsystem.controller
 
-import com.aideia.creditapplicationsystem.dto.CreditDto
-import com.aideia.creditapplicationsystem.dto.CreditView
-import com.aideia.creditapplicationsystem.dto.CreditViewList
+import com.aideia.creditapplicationsystem.dto.request.CreditDto
+import com.aideia.creditapplicationsystem.dto.response.CreditView
+import com.aideia.creditapplicationsystem.dto.response.CreditViewList
 import com.aideia.creditapplicationsystem.entity.Credit
-import com.aideia.creditapplicationsystem.service.impl.CreditService
+import com.aideia.creditapplicationsystem.service.CreditService
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -23,17 +23,21 @@ import java.util.stream.Collectors
 class CreditResource(
     private val creditService: CreditService
 ) {
+
     @PostMapping
     fun saveCredit(@RequestBody @Valid creditDto: CreditDto): ResponseEntity<String> {
-        val saveCredit: Credit = this.creditService.save(creditDto.toEntity())
+        val credit: Credit = this.creditService.save(creditDto.toEntity())
         return ResponseEntity.status(HttpStatus.CREATED)
-            .body("Credit ${saveCredit.creditCode} - Customer ${saveCredit.custommer?.firstName}")
+            .body("Credit ${credit.creditCode} - Customer ${credit.customer?.email} saved!")
     }
 
     @GetMapping
-    fun findAllCustomerId(@RequestParam(value = "customerId") customerId: Long): ResponseEntity<List<CreditViewList>> {
-        val creditViewList: List<CreditViewList> = this.creditService.findAllByCustomer(customerId).stream()
-            .map { credit: Credit -> CreditViewList(credit) }.collect(Collectors.toList())
+    fun findAllByCustomerId(@RequestParam(value = "customerId") customerId: Long):
+            ResponseEntity<List<CreditViewList>> {
+        val creditViewList: List<CreditViewList> = this.creditService.findAllByCustomer(customerId)
+            .stream()
+            .map { credit: Credit -> CreditViewList(credit) }
+            .collect(Collectors.toList())
         return ResponseEntity.status(HttpStatus.OK).body(creditViewList)
     }
 

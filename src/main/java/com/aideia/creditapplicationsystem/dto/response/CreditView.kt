@@ -1,4 +1,4 @@
-package com.aideia.creditapplicationsystem.dto
+package com.aideia.creditapplicationsystem.dto.response
 
 import com.aideia.creditapplicationsystem.entity.Credit
 import com.aideia.creditapplicationsystem.enumeration.Status
@@ -8,17 +8,17 @@ import java.util.UUID
 data class CreditView(
     val creditCode: UUID,
     val creditValue: BigDecimal,
-    val numberOffInstallment: Int,
-    val status : Status,
-    val emailCustomer:String?,
+    val numberOfInstallment: Int,
+    val status: Status,
+    val emailCustomer: String?,
     val incomeCustomer: BigDecimal?
-){
-    constructor(credit:Credit): this(
+) {
+    constructor(credit: Credit) : this(
         creditCode = credit.creditCode,
         creditValue = credit.creditValue,
-        numberOffInstallment = credit.numberOffInstallment,
+        numberOfInstallment = credit.numberOfInstallments,
         status = credit.status,
-        emailCustomer = credit.custommer?.email,
-        incomeCustomer = credit.custommer?.income
+        emailCustomer = credit.customer?.email,
+        incomeCustomer = credit.customer?.income
     )
 }

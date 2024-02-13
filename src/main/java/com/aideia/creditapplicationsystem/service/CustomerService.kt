@@ -1,9 +1,9 @@
-package com.aideia.creditapplicationsystem.service.impl
+package com.aideia.creditapplicationsystem.service
 
 import com.aideia.creditapplicationsystem.entity.Customer
-import com.aideia.creditapplicationsystem.exception.BusinesException
+import com.aideia.creditapplicationsystem.exception.BusinessException
 import com.aideia.creditapplicationsystem.repository.CustomerRepository
-import com.aideia.creditapplicationsystem.service.ICustomerService
+import com.aideia.creditapplicationsystem.service.impl.ICustomerService
 import org.springframework.stereotype.Service
 
 @Service
@@ -16,7 +16,7 @@ class CustomerService(
 
     override fun finById(id: Long): Customer {
         return this.customerRepository.findById(id).orElseThrow {
-             throw BusinesException("ID $id not found")
+             throw BusinessException("ID $id not found")
         }
     }
 

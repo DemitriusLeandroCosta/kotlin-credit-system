@@ -1,4 +1,4 @@
-package com.aideia.creditapplicationsystem.dto
+package com.aideia.creditapplicationsystem.dto.request
 
 import com.aideia.creditapplicationsystem.entity.Customer
 import jakarta.validation.constraints.NotEmpty
@@ -16,9 +16,8 @@ data class CustomerUpdateDto(
         customer.firstName = this.firstName
         customer.lastName = this.lastName
         customer.income = this.income
-        customer.address.zipeCode = this.zipCode
         customer.address.street = this.street
-
+        customer.address.zipCode = this.zipCode
         return customer
     }
 }

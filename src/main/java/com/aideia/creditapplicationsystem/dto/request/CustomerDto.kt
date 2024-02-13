@@ -1,4 +1,4 @@
-package com.aideia.creditapplicationsystem.dto
+package com.aideia.creditapplicationsystem.dto.request
 
 import com.aideia.creditapplicationsystem.entity.Address
 import com.aideia.creditapplicationsystem.entity.Customer
@@ -11,15 +11,16 @@ import java.math.BigDecimal
 data class CustomerDto(
     @field:NotEmpty(message = "Invalid input") val firstName: String,
     @field:NotEmpty(message = "Invalid input") val lastName: String,
-    @field:NotEmpty(message = "Invalid input CPF")
-    @field:CPF(message = "CPF Invalid!") val cpf: String,
-    @field:NotNull(message = "Inform o valor do Salubrious!") val income: BigDecimal,
     @field:NotEmpty(message = "Invalid input")
-    @field:Email(message = "E-mail invalid!") val email: String,
+    @field:CPF(message = "This invalid CPF") val cpf: String,
+    @field:NotNull(message = "Invalid input") val income: BigDecimal,
+    @field:Email(message = "Invalid email")
+    @field:NotEmpty(message = "Invalid input") val email: String,
     @field:NotEmpty(message = "Invalid input") val password: String,
     @field:NotEmpty(message = "Invalid input") val zipCode: String,
     @field:NotEmpty(message = "Invalid input") val street: String
 ) {
+
     fun toEntity(): Customer = Customer(
         firstName = this.firstName,
         lastName = this.lastName,
@@ -28,7 +29,7 @@ data class CustomerDto(
         email = this.email,
         password = this.password,
         address = Address(
-            zipeCode = this.zipCode,
+            zipCode = this.zipCode,
             street = this.street
         )
     )

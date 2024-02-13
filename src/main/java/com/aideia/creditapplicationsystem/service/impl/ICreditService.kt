@@ -1,4 +1,4 @@
-package com.aideia.creditapplicationsystem.service
+package com.aideia.creditapplicationsystem.service.impl
 
 import com.aideia.creditapplicationsystem.entity.Credit
 import java.util.UUID

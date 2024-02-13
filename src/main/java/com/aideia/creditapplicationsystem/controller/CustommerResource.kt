@@ -1,10 +1,10 @@
 package com.aideia.creditapplicationsystem.controller
 
-import com.aideia.creditapplicationsystem.dto.CustomerDto
-import com.aideia.creditapplicationsystem.dto.CustomerUpdateDto
-import com.aideia.creditapplicationsystem.dto.CustomerView
+import com.aideia.creditapplicationsystem.dto.request.CustomerDto
+import com.aideia.creditapplicationsystem.dto.request.CustomerUpdateDto
+import com.aideia.creditapplicationsystem.dto.response.CustomerView
 import com.aideia.creditapplicationsystem.entity.Customer
-import com.aideia.creditapplicationsystem.service.impl.CustomerService
+import com.aideia.creditapplicationsystem.service.CustomerService
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -24,10 +24,11 @@ import org.springframework.web.bind.annotation.RestController
 class CustommerResource(
     private val customerService: CustomerService
 ) {
+
     @PostMapping
-    fun saveCustomer(@RequestBody @Valid customerDto: CustomerDto): ResponseEntity<String> {
-        val saveCustomer = this.customerService.save(customerDto.toEntity())
-        return ResponseEntity.status(HttpStatus.CREATED).body("Customer ${saveCustomer.email} saved!")
+    fun saveCustomer(@RequestBody @Valid customerDto: CustomerDto): ResponseEntity<CustomerView> {
+        val savedCustomer: Customer = this.customerService.save(customerDto.toEntity())
+        return ResponseEntity.status(HttpStatus.CREATED).body(CustomerView(savedCustomer))
     }
 
     @GetMapping("/{id}")
@@ -39,6 +40,7 @@ class CustommerResource(
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun deleteCustomer(@PathVariable id: Long) = this.customerService.delete(id)
+
 
     @PatchMapping
     fun updateCustomer(

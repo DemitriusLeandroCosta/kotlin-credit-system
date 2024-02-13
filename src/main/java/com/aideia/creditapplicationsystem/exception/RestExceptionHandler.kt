@@ -22,7 +22,7 @@ class RestExceptionHandler {
         }
         return ResponseEntity(
             ExceptionDetails(
-                title = "Bad Request",
+                title = "Bad Request! Consult the documentation",
                 timeStamp = LocalDateTime.now(),
                 status = HttpStatus.BAD_REQUEST.value(),
                 exception = ex.javaClass.toString(),
@@ -33,42 +33,52 @@ class RestExceptionHandler {
 
     @ExceptionHandler(DataAccessException::class)
     fun handlerValidException(ex: DataAccessException): ResponseEntity<ExceptionDetails> {
-        //val erros: MutableMap<String, String?> = HashMap()
-        return ResponseEntity(
-            ExceptionDetails(
-                title = "Conflict Request",
-                timeStamp = LocalDateTime.now(),
-                status = HttpStatus.CONFLICT.value(),
-                exception = ex.javaClass.toString(),
-                details = mutableMapOf(ex.cause.toString() to ex.message)
-            ), HttpStatus.CONFLICT
-        )
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+            .body(
+                ExceptionDetails(
+                    title = "Conflict! Consult the documentation",
+                    timeStamp = LocalDateTime.now(),
+                    status = HttpStatus.CONFLICT.value(),
+                    exception = ex.javaClass.toString(),
+                    details = mutableMapOf(ex.cause.toString() to ex.message)
+                )
+            )
+        /*return ResponseEntity(
+          ExceptionDetails(
+            title = "Bad Request! Consult the documentation",
+            timestamp = LocalDateTime.now(),
+            status = HttpStatus.CONFLICT.value(),
+            exception = ex.javaClass.toString(),
+            details = mutableMapOf(ex.cause.toString() to ex.message)
+          ), HttpStatus.CONFLICT
+        )*/
     }
 
-    //Exception Personalizada
-    @ExceptionHandler(BusinesException::class)
-    fun handlerValidException(ex: BusinesException): ResponseEntity<ExceptionDetails> {
-        return ResponseEntity(
-            ExceptionDetails(
-                title = "Bad Request",
-                timeStamp = LocalDateTime.now(),
-                status = HttpStatus.BAD_REQUEST.value(),
-                exception = ex.javaClass.toString(),
-                details = mutableMapOf(ex.cause.toString() to ex.message)
-            ), HttpStatus.BAD_REQUEST
-        )
+    @ExceptionHandler(BusinessException::class)
+    fun handlerValidException(ex: BusinessException): ResponseEntity<ExceptionDetails> {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            .body(
+                ExceptionDetails(
+                    title = "Bad Request! Consult the documentation",
+                    timeStamp = LocalDateTime.now(),
+                    status = HttpStatus.BAD_REQUEST.value(),
+                    exception = ex.javaClass.toString(),
+                    details = mutableMapOf(ex.cause.toString() to ex.message)
+                )
+            )
     }
 
     @ExceptionHandler(IllegalArgumentException::class)
     fun handlerValidException(ex: IllegalArgumentException): ResponseEntity<ExceptionDetails> {
-        return ResponseEntity(
-            ExceptionDetails(
-                title = "Bad Request",
-                timeStamp = LocalDateTime.now(),
-                status = HttpStatus.BAD_REQUEST.value(),
-                exception = ex.javaClass.toString(),
-                details = mutableMapOf(ex.cause.toString() to ex.message)
-            ), HttpStatus.BAD_REQUEST
-        )
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            .body(
+                ExceptionDetails(
+                    title = "Bad Request! Consult the documentation",
+                    timeStamp = LocalDateTime.now(),
+                    status = HttpStatus.BAD_REQUEST.value(),
+                    exception = ex.javaClass.toString(),
+                    details = mutableMapOf(ex.cause.toString() to ex.message)
+                )
+            )
     }
 }

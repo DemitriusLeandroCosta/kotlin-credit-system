@@ -1,14 +1,17 @@
 package com.aideia.creditapplicationsystem.repository
 
 import com.aideia.creditapplicationsystem.entity.Credit
+import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
-import org.springframework.data.repository.CrudRepository
+import org.springframework.stereotype.Repository
 import java.util.*
 
 
-interface CreditRepository : CrudRepository<Credit, Long> {
-    fun findByCreditCode(creditCode: UUID): Credit?
 
-    @Query(value = "SELECT * from CREDIT where CUSTOMMER_ID  = ?1", nativeQuery = true)
+@Repository
+interface CreditRepository: JpaRepository<Credit, Long> {
+    fun findByCreditCode(creditCode: UUID) : Credit?
+
+    @Query(value = "SELECT * FROM CREDIT WHERE CUSTOMER_ID = ?1", nativeQuery = true)
     fun findAllByCustomerId(customerId: Long): List<Credit>
 }
