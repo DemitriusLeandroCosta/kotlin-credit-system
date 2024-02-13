@@ -1,6 +1,7 @@
 package com.aideia.creditapplicationsystem.service.impl
 
 import com.aideia.creditapplicationsystem.entity.Credit
+import com.aideia.creditapplicationsystem.exception.BusinesException
 import com.aideia.creditapplicationsystem.repository.CreditRepository
 import com.aideia.creditapplicationsystem.service.ICreditService
 import org.springframework.stereotype.Service
@@ -22,7 +23,7 @@ class CreditService(
 
     override fun findByCreditCode(customerId: Long, creditCode: UUID): Credit {
        val credit:Credit =(this.creditRepository.findByCreditCode(creditCode)?:
-       throw RuntimeException("Credit Code inexistente"))
-        return if(credit.custommer?.id == customerId) credit else throw RuntimeException("Contact Admin")
+       throw BusinesException("CreditCode $creditCode not found "))
+        return if(credit.custommer?.id == customerId) credit else throw IllegalArgumentException("Contact Admin")
     }
 }
