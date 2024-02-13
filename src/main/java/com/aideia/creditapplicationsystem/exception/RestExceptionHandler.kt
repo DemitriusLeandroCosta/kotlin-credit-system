@@ -1,5 +1,6 @@
 package com.aideia.creditapplicationsystem.exception
 
+import org.springframework.dao.DataAccessException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.FieldError
@@ -27,6 +28,20 @@ class RestExceptionHandler {
                 exception = ex.javaClass.toString(),
                 details = erros
             ), HttpStatus.BAD_REQUEST
+        )
+    }
+
+    @ExceptionHandler(DataAccessException::class)
+    fun handlerValidException(ex: DataAccessException): ResponseEntity<ExceptionDetails> {
+        //val erros: MutableMap<String, String?> = HashMap()
+        return ResponseEntity(
+            ExceptionDetails(
+                title = "Conflict Request",
+                timeStamp = LocalDateTime.now(),
+                status = HttpStatus.CONFLICT.value(),
+                exception = ex.javaClass.toString(),
+                details = mutableMapOf(ex.cause.toString() to ex.message)
+            ), HttpStatus.CONFLICT
         )
     }
 }
